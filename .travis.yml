@@ -4,9 +4,20 @@ compiler:
   - gcc
   - clang
 
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-trusty-5.0
+      - key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
+    packages:
+      - clang-format-5.0
+
 before_script:
   - mkdir build
   - cd build
   - cmake ..
 
-script: make
+script:
+ - make
+ - cd ..
+ - ./run-clang-format.py -r src
